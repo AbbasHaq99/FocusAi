@@ -12,7 +12,7 @@ if not cap.isOpened():
     exit()
 
 
-def start_detector():
+def start_detector(on_status_change=None):
     global is_running
     is_running = True
     cap = cv2.VideoCapture(0)
@@ -29,9 +29,9 @@ def start_detector():
         gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.1, minNeighbors=5)
         if len(faces) > 0:
-            check_focus(True)
+            check_focus(True, on_status_change)
         else:
-            check_focus(False)
+            check_focus(False, on_status_change)
         time.sleep(1)
 
     cap.release()
